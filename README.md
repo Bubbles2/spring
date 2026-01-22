@@ -119,6 +119,41 @@ The application automatically creates the following schema:
 - `price` (DECIMAL(10,2), NOT NULL)
 - `customer_id` (BIGINT, Foreign Key → customers.id)
 
+## Docker Support
+
+You can run the application and the PostgreSQL database together using Docker Compose.
+
+### Prerequisites (Docker)
+- Docker Desktop installed and running
+
+### Running with Docker
+
+1. **Build and Run:**
+   ```bash
+   docker-compose up --build
+   ```
+   This will start:
+   - PostgreSQL (port 5432 inside container, mapped to host port 5433 to avoid conflicts)
+   - Spring Boot Application (port 8080)
+
+2. **Access:**
+   The application will be available at `http://localhost:8080`.
+
+3. **Stop:**
+   Press `Ctrl+C` or run `docker-compose down`.
+
+### Testing APIs (PowerShell)
+
+**Add a Customer:**
+```powershell
+Invoke-RestMethod -Method Post -Uri "http://localhost:8080/api/customers" -ContentType "application/json" -Body '{"name": "John Doe", "address": "123 Main St"}'
+```
+
+**List Customers:**
+```powershell
+Invoke-RestMethod -Uri "http://localhost:8080/api/customers"
+```
+
 ## Running the Application
 
 ### Step 1: Create PostgreSQL Database
